@@ -5,10 +5,15 @@ const CartItem = ({
   handleDelete,
 }) => {
   return (
-    <div className='card'>
+    <div className='card mb-1'>
       <div className='card-body'>
         <div className='image'>
-          <img src='' alt='' />
+          <img
+            style={{ width: 200, height: 150 }}
+            className='img-fluid'
+            src={product.img}
+            alt=''
+          />
         </div>
 
         <div className='info'>
