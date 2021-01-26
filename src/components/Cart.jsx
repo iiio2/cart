@@ -28,17 +28,35 @@ class Cart extends Component {
     ],
   };
 
-  increaseQty = () => {
-    //   setState form 1
-    // const qty = this.state.qty + 1;
-    // this.setState({ qty });
+  handleIncreaseQty = (product) => {
+    const { products } = this.state;
+    const index = products.indexOf(product);
 
-    // form 2
+    products[index].qty += 1;
 
-    this.setState((prevState) => {
-      return {
-        qty: prevState.qty + 1,
-      };
+    this.setState({ products });
+  };
+
+  handleDecreaseQty = (product) => {
+    const { products } = this.state;
+    const index = products.indexOf(product);
+
+    if (products[index].qty === 0) {
+      return;
+    }
+
+    products[index].qty -= 1;
+
+    this.setState({ products });
+  };
+
+  handleDelete = (product) => {
+    const { products } = this.state;
+
+    const items = products.filter((item) => item.id !== product.id);
+
+    this.setState({
+      products: items,
     });
   };
 
@@ -47,7 +65,13 @@ class Cart extends Component {
     return (
       <div className='container'>
         {products.map((product) => (
-          <CartItem key={product.id} product={product} />
+          <CartItem
+            key={product.id}
+            product={product}
+            handleIncreaseQty={this.handleIncreaseQty}
+            handleDecreaseQty={this.handleDecreaseQty}
+            handleDelete={this.handleDelete}
+          />
         ))}
       </div>
     );
