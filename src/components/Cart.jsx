@@ -81,6 +81,23 @@ class Cart extends Component {
     // this.setState({ products });
   };
 
+  addProduct = () => {
+    db.collection('products')
+      .add({
+        title: 'Bag',
+        qty: 2,
+        price: 399,
+        img:
+          'https://images.unsplash.com/photo-1551481655-ec4aab5cb67a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+      })
+      .then(() => {
+        console.log('product added');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   handleDelete = (product) => {
     // const { products } = this.state;
 
@@ -126,7 +143,6 @@ class Cart extends Component {
 
   render() {
     const { products, isLoading } = this.state;
-    console.log(db);
     return (
       <div className='container'>
         <div className='row'>
@@ -140,10 +156,13 @@ class Cart extends Component {
 
             <span
               style={{ fontSize: '1.2rem' }}
-              className='badge badge-success'
+              className='badge badge-success mb-3'
             >
               Price: {this.getCartPrice()}
             </span>
+            <button className='btn btn-info' onClick={this.addProduct}>
+              Add Product
+            </button>
           </div>
 
           <div className='col-sm-9'>
